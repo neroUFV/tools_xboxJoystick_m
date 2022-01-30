@@ -46,8 +46,8 @@ while toc(t) < tmax
 
         % Update and save flight data
         A.rGetSensorData
-        XX = [XX [A.pPos.Xd; A.pPos.X; tt]];
-        
+        XX = [XX [A.pPos.Xd; A.pPos.X; toc(t)]];
+
     end
 
 
@@ -59,21 +59,36 @@ A.rDisconnect
 
 %% Plot results
 figure(1)
+title('Erro em \phi e \theta')
 subplot(211),plot(XX(end,:),XX([4 16],:)'*180/pi)
 legend('\phi_{Des}','\phi_{Atu}')
+xlabel('t [s]')
+ylabel('[°]')
 grid
 subplot(212),plot(XX(end,:),XX([5 17],:)'*180/pi)
 legend('\theta_{Des}','\theta_{Atu}')
+xlabel('t [s]')
+ylabel('[°]')
 grid
 
 figure(2)
-plot(XX([1,13],:)',XX([2,14],:)')
+plot(XX([1,13],:)',XX([1,14],:)')
+xlabel('x [m]')
+ylabel('y [m]')
+title('Visão superior')
+colormap winter
+grid on
 axis equal
 
 figure(3)
+title('Erro em X e Y')
 subplot(211),plot(XX(end,:),XX([1 13],:)')
 legend('x_{Des}','x_{Atu}')
+xlabel('t [s]')
+ylabel('[m]')
 grid
 subplot(212),plot(XX(end,:),XX([2 14],:)')
 legend('y_{Des}','y_{Atu}')
+xlabel('t [s]')
+ylabel('[m]')
 grid
