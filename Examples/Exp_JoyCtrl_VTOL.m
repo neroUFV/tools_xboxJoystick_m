@@ -12,9 +12,6 @@ clearvars;close all;clc;
 J = JoyControl;
 J.mConnect;
 
-figure(1)
-drawnow
-
 A = ArDrone;
 A.rConnect;
 
@@ -23,7 +20,7 @@ DESIRED = 2;
 state = 1;
 
 % Experiment variables
-X = []; 
+XX = []; 
 tmax = 30;   % experiment time in seconds
 
 %% run 
@@ -47,24 +44,10 @@ while toc(t) < tmax
     if toc(tc) > 1/30
         tc = tic;
 
-        % Update flight data
-        A.rGetStatusRawData
-
-        if sum(A.pCom.cRawData) > 1
-   
-            Y = [A.pCom.cRawData toc(t)];
-            X = [X; Y];  % TODO transformar em matriz prealocada!
-            
-            try
-                delete(h1,h2,h3)
-            end
-            
-            subplot(3,1,1),h1 = plot(X(:,end),X(:,2:4)); axis([0 tmax -45 45])
-            subplot(3,1,2),h2 = plot(X(:,end),X(:,5)); axis([0 tmax 0 3])
-            subplot(3,1,3),h3 = plot(X(:,end),X(:,8)); axis([0 tmax -0.5 0.5])
-            drawnow
-            
-        end
+        % Update and save flight data
+        A.rGetSensorData
+        XX = [XX [A.pPos.Xd; A.pPos.X; tt]];
+        
     end
 
 
@@ -74,3 +57,23 @@ end
 A.rLand
 A.rDisconnect
 
+%% Plot results
+figure(1)
+subplot(211),plot(XX(end,:),XX([4 16],:)'*180/pi)
+legend('\phi_{Des}','\phi_{Atu}')
+grid
+subplot(212),plot(XX(end,:),XX([5 17],:)'*180/pi)
+legend('\theta_{Des}','\theta_{Atu}')
+grid
+
+figure(2)
+plot(XX([1,13],:)',XX([2,14],:)')
+axis equal
+
+figure(3)
+subplot(211),plot(XX(end,:),XX([1 13],:)')
+legend('x_{Des}','x_{Atu}')
+grid
+subplot(212),plot(XX(end,:),XX([2 14],:)')
+legend('y_{Des}','y_{Atu}')
+grid
