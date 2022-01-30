@@ -1,5 +1,5 @@
 # tools_xboxJoystick_m
 
 ```  
-Em desenvolvimento! Utilizar na branch firstRelease.
+Em desenvolvimento! Versão mais recente na branch firstRelease. Versão antiga / legado Dropbox na branch main.
 ```
