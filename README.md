@@ -1,11 +1,12 @@
 # tools_xboxJoystick_m
 
 ```  
-Em desenvolvimento! Versão mais recente na branch firstRelease. Versão antiga / legado Dropbox na branch main.
+Em desenvolvimento! Versão mais recente na branch firstRelease.
 ```
 
+```
 % Joystick control
-	% XBOX gamepad mapping:
+% XBOX gamepad mapping:
 %       [LB/LT]                                   [RB/RT]
 %     . - . - . -                               - . - . - .
 %   .             \ - - - - - - - - - -  - -  /            .
@@ -40,3 +41,4 @@ Em desenvolvimento! Versão mais recente na branch firstRelease. Versão antiga 
 % AXIS VECTOR: [XL YL (LT+/RT-) XR YR]
 
 % ====================================================
+```
